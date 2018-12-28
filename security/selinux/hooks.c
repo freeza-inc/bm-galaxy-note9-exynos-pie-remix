@@ -3462,24 +3462,6 @@ static int selinux_inode_permission(struct inode *inode, int mask)
 	if (IS_ERR(isec))
 		return PTR_ERR(isec);
 
-// [ SEC_SELINUX_PORTING_COMMON
-	/* skip sid == 1(kernel), it means first boot time */
-	if (isec->initialized != 1 && sid != 1) {
-		int count = 5;
-
-		while (count-- > 0) {
-			pr_err("SELinux : inode->i_security is not initialized. waiting...(%d/5)\n", 5-count);
-			udelay(500);
-			if (isec->initialized == 1) {
-				pr_err("SELinux : inode->i_security is INITIALIZED.\n");
-				break;
-			}
-		}
-		if (isec->initialized != 1)
-			pr_err("SELinux : inode->i_security is not initialized. not fixed.\n");
-	}
-// ] SEC_SELINUX_PORTING_COMMON
-
 	rc = avc_has_perm_noaudit(sid, isec->sid, isec->sclass, perms, 0, &avd);
 	audited = avc_audit_required(perms, &avd, rc,
 				     from_access ? FILE__AUDIT_ACCESS : 0,

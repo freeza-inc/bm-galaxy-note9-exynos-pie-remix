@@ -34,12 +34,6 @@
 #include "avc_ss.h"
 #include "classmap.h"
 
-// [ SEC_SELINUX_PORTING_COMMON
-#ifdef SEC_SELINUX_DEBUG
-#include <linux/signal.h>
-#endif
-// ] SEC_SELINUX_PORTING_COMMON
-
 #define AVC_CACHE_SLOTS			512
 #define AVC_DEF_CACHE_THRESHOLD		512
 #define AVC_CACHE_RECLAIM		16
