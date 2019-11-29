@@ -434,9 +434,6 @@ int edid_update(struct displayport_device *hdev)
 
 	fb_edid_to_monspecs(edid, &specs);
 
-	for (i = 1; i < block_cnt; i++)
-		fb_edid_add_monspecs(edid + i * EDID_BLOCK_SIZE, &specs);
-
 	/* find 2D preset */
 	for (i = 0; i < specs.modedb_len; i++)
 		first = edid_find_preset(&specs.modedb[i], first);
